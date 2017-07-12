@@ -606,6 +606,48 @@
     </element>
   </define>
 
+  <define name="content-location">
+    <element name="content-location">
+      <attribute name="electronic" a:defaultValue="no">
+        <choice>
+          <value>yes</value>
+          <value>no</value>
+        </choice>
+      </attribute>
+      <text/>
+    </element>
+  </define>
+
+  <!--
+    We use a strict definition for element-citation in Texture.
+
+    TODO: - support remaining publication types
+          - implement attribute-sensitive sub-typing
+  -->
+  <define name="element-citation">
+    <element name="element-citation">
+      <interleave>
+        <!-- shared -->
+        <ref name="element-citation-attlist"/>
+        <ref name="person-group"/>
+        <ref name="year"/>
+        <ref name="source"/>
+        <ref name="issue"/>
+        <ref name="content-location"/>
+        <zeroOrMore>
+          <ref name="pub-id"/>
+        </zeroOrMore>
+        <!-- journal -->
+        <ref name="article-title"/>
+        <ref name="volume"/>
+        <!-- book -->
+        <ref name="chapter-title"/>
+        <ref name="publisher-loc"/>
+        <ref name="publisher-name"/>
+      </interleave>
+    </element>
+  </define>
+
   <!--
     Removed <email>, <uri>, and direct usage of math
 
@@ -749,62 +791,6 @@
     </choice>
   </define>
 
-
-  <!--
-    We use a strict definition for element-citation in Texture.
-
-    TODO: support remaining publication types
-  -->
-  <define name="element-citation">
-    <element name="element-citation">
-      <ref name="element-citation-attlist"/>
-      <ref name="person-group"/>
-      <choice>
-        <group>
-          <!-- publication-type="journal" -->
-          <ref name="year"/>
-          <ref name="article-title"/>
-          <ref name="source"/>
-          <ref name="volume"/>
-          <ref name="fpage"/>
-          <ref name="lpage"/>
-          <ref name="issue"/>
-          <ref name="elocation-id"/>
-          <!-- TODO: how can we support multiple pub-ids, other than doi -->
-          <ref name="pub-id"/>
-
-        </group>
-        <group>
-          <!-- publication-type="book" -->
-          <ref name="chapter-title"/>
-          <ref name="source"/>
-          <ref name="publisher-loc"/>
-          <ref name="publisher-name"/>
-          <ref name="year"/>
-          <ref name="fpage"/>
-          <ref name="lpage"/>
-          <ref name="issue"/>
-          <ref name="elocation-id"/>
-        </group>
-      </choice>
-    </element>
-  </define>
-
-  <!--
-    year, source, publisher-loc, publisher-name, fpage, lpage, issue must be
-    plain text only in Texture
-  -->
-  <define name="year"><element name="year"><text/></element></define>
-  <define name="source"><element name="source"><text/></element></define>
-  <define name="volume"><element name="volume"><text/></element></define>
-  <define name="fpage"><element name="fpage"><text/></element></define>
-  <define name="lpage"><element name="lpage"><text/></element></define>
-  <define name="issue"><element name="issue"><text/></element></define>
-  <define name="issue"><element name="issue"><text/></element></define>
-  <define name="pub-id"><element name="pub-id"><text/></element></define>
-  <define name="publisher-name"><element name="publisher-name"><text/></element></define>
-  <define name="publisher-loc"><element name="publisher-loc"><text/></element></define>
-  <define name="elocation-id"><element name="elocation-id"><text/></element></define>
 
   <!--
     We force using <element-citation> for structured representation

@@ -226,29 +226,83 @@
     </element>
   </define>
 
-  <!--
-    Changes:
-      - Removed phrase and inline elements
 
-    TODO: provide transformation
+  <define name="content-location">
+    <choice>
+      <group>
+        <ref name="fpage"/>
+        <optional><ref name="lpage"/></optional>
+      </group>
+      <ref name="page-range"/>
+      <ref name="elocation-id"/>
+    </choice>
+  </define>
+
+  <!--
+    We use a strict definition for element-citation in Texture.
+
+    TODO: - support remaining publication types
+          - implement attribute-sensitive sub-typing
   -->
   <define name="element-citation">
     <element name="element-citation">
       <ref name="element-citation-attlist"/>
-      <oneOrMore>
-        <choice>
-          <ref name="citation-additions.class"/>
-          <!--<ref name="emphasis.class"/>-->
-          <!-- <ref name="inline-display.class"/> -->
-          <!-- <ref name="inline-math.class"/> -->
-          <ref name="label.class"/>
-          <!-- <ref name="phrase.class"/> -->
-          <ref name="references.class"/>
-          <!-- <ref name="subsup.class"/> -->
-        </choice>
-      </oneOrMore>
+      <ref name="person-group"/>
+      <choice>
+        <group>
+          <!-- publication-type="journal" -->
+          <ref name="year"/>
+          <ref name="article-title"/>
+          <ref name="source"/>
+          <optional><ref name="volume"/></optional>
+          <optional>
+            <ref name="content-location"/>
+          </optional>
+          <optional><ref name="issue"/></optional>
+          <!-- TODO: how can we support multiple pub-ids, other than doi -->
+          <zeroOrMore>
+            <ref name="pub-id"/>
+          </zeroOrMore>
+        </group>
+        <group>
+          <!-- publication-type="book" -->
+          <ref name="chapter-title"/>
+          <ref name="source"/>
+          <ref name="publisher-loc"/>
+          <ref name="publisher-name"/>
+          <ref name="year"/>
+          <optional>
+            <choice>
+              <optional>
+                <ref name="content-location"/>
+              </optional>
+          </optional>
+          <optional><ref name="issue"/></optional>
+          <!-- TODO: how can we support multiple pub-ids, other than doi -->
+          <zeroOrMore>
+            <ref name="pub-id"/>
+          </zeroOrMore>
+        </group>
+      </choice>
     </element>
   </define>
+
+  <!--
+    year, source, publisher-loc, publisher-name, fpage, lpage, issue must be
+    plain text only in Texture
+  -->
+  <define name="year"><element name="year"><text/></element></define>
+  <define name="source"><element name="source"><text/></element></define>
+  <define name="volume"><element name="volume"><text/></element></define>
+  <define name="fpage"><element name="fpage"><text/></element></define>
+  <define name="lpage"><element name="lpage"><text/></element></define>
+  <define name="issue"><element name="issue"><text/></element></define>
+  <define name="issue"><element name="issue"><text/></element></define>
+  <define name="pub-id"><element name="pub-id"><text/></element></define>
+  <define name="publisher-name"><element name="publisher-name"><text/></element></define>
+  <define name="publisher-loc"><element name="publisher-loc"><text/></element></define>
+  <define name="elocation-id"><element name="elocation-id"><text/></element></define>
+
 
   <!--
     WIP: We should make it crystal clear how to tag content

@@ -38,8 +38,7 @@ export default class EditRef extends Component {
       this._renderPeriodical($$),
       this._renderElocation($$),
       this._renderPages($$),
-      this._renderDOI($$),
-      this._renderPMID($$),
+      'TODO: add pub-id editor',
       this._renderComment($$)
     )
 
@@ -260,31 +259,7 @@ export default class EditRef extends Component {
     return el
   }
 
-  _renderDOI($$) {
-    let doi = this.props.node.find('pub-id[pub-id-type=doi]')
 
-    if(doi) {
-      return $$('div').addClass('se-doi').append(
-        $$('div').addClass('se-label').append('DOI'),
-        this._renderTextElement($$, doi, 'DOI of article')
-      )
-    } else {
-      return
-    }
-  }
-
-  _renderPMID($$) {
-    let pmid = this.props.node.find('pub-id[pub-id-type=pmid]')
-
-    if(pmid) {
-      return $$('div').addClass('se-pmid').append(
-        $$('div').addClass('se-label').append('PMID'),
-        this._renderTextElement($$, pmid, 'PubMed identifier')
-      )
-    } else {
-      return
-    }
-  }
 
   _renderComment($$) {
     let comment = this.props.node.find('comment')
