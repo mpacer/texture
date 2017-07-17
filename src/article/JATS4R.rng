@@ -272,10 +272,7 @@
           <ref name="publisher-name"/>
           <ref name="year"/>
           <optional>
-            <choice>
-              <optional>
-                <ref name="content-location"/>
-              </optional>
+            <ref name="content-location"/>
           </optional>
           <optional><ref name="issue"/></optional>
           <!-- TODO: how can we support multiple pub-ids, other than doi -->

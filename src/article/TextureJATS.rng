@@ -626,9 +626,9 @@
   -->
   <define name="element-citation">
     <element name="element-citation">
+      <ref name="element-citation-attlist"/>
       <interleave>
         <!-- shared -->
-        <ref name="element-citation-attlist"/>
         <ref name="person-group"/>
         <ref name="year"/>
         <ref name="source"/>
